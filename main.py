@@ -14,6 +14,52 @@ date = '2011_09_26'
 drive = '0001'
 dataset = raw(basedir, date, drive)
 
+def compute_ate(estimated_trajectory, ground_truth_trajectory):
+    """
+    Compute Absolute Trajectory Error (ATE) between estimated and ground truth trajectories
+    
+    Args:
+        estimated_trajectory: List of 4x4 transformation matrices
+        ground_truth_trajectory: List of 4x4 transformation matrices
+        
+    Returns:
+        ate: Absolute Trajectory Error (RMSE)
+        errors: List of individual errors at each timestep
+    """
+    # Align trajectories using first pose
+    first_est = estimated_trajectory[0]
+    first_gt = ground_truth_trajectory[0]
+    
+    # Compute alignment transformation
+    alignment = first_gt @ np.linalg.inv(first_est)
+    
+    # Align estimated trajectory
+    aligned_estimated = [alignment @ pose for pose in estimated_trajectory]
+    
+    # Extract positions
+    est_positions = np.array([pose[:3, 3] for pose in aligned_estimated])
+    gt_positions = np.array([pose[:3, 3] for pose in ground_truth_trajectory])
+    
+    # Calculate errors
+    errors = np.linalg.norm(est_positions - gt_positions, axis=1)
+    ate = np.sqrt(np.mean(errors**2))
+    
+    return ate, errors
+
+def get_ground_truth_trajectory(dataset, num_frames):
+    """Extract ground truth trajectory from KITTI dataset"""
+    gt_trajectory = []
+    
+    # KITTI poses are given as 4x4 transformation matrices
+    for i in range(num_frames):
+        # Get pose from OXTS data (ground truth)
+        oxts = dataset.oxts[i]
+        pose = oxts.T_w_imu  # Transformation from IMU to world
+        
+        gt_trajectory.append(pose)
+    
+    return gt_trajectory
+
 def preprocess_point_cloud(points, max_points=50000):
     """Downsample and remove outliers from point cloud"""
     # Remove points with zero reflectance and invalid coordinates
@@ -69,9 +115,12 @@ def icp(source, target, max_iterations=20, tolerance=1e-3):
     return transformation
 
 def benchmark_slam(dataset, num_frames=100):
-    """Benchmark a simple SLAM implementation"""
+    """Benchmark a simple SLAM implementation with ATE calculation"""
     timings = []
     trajectory = [np.eye(4)]  # Start with identity transformation
+    
+    # Get ground truth trajectory
+    gt_trajectory = get_ground_truth_trajectory(dataset, num_frames)
     
     # Pre-load all point clouds
     point_clouds = []
@@ -101,28 +150,36 @@ def benchmark_slam(dataset, num_frames=100):
     avg_time = np.mean(timings)
     fps = 1 / avg_time if avg_time > 0 else 0
     
+    # Compute ATE
+    ate, errors = compute_ate(trajectory, gt_trajectory)
+    
     print(f"\nBenchmark Results:")
     print(f"- Average processing time per frame: {avg_time:.4f} seconds")
     print(f"- Average FPS: {fps:.2f}")
+    print(f"- Absolute Trajectory Error (ATE): {ate:.4f} meters")
     
-    return trajectory, timings
+    return trajectory, timings, ate, errors, gt_trajectory
 
-# Run benchmark on first 100 frames
-trajectory, timings = benchmark_slam(dataset, num_frames=100)
+trajectory, timings, ate, errors, gt_trajectory = benchmark_slam(dataset, num_frames=100)
 
-# Visualize trajectory
-def plot_trajectory(trajectory):
-    positions = [pose[:3, 3] for pose in trajectory]
-    positions = np.array(positions)
+def plot_trajectory_comparison(estimated_trajectory, gt_trajectory):
+    """Plot both estimated and ground truth trajectories"""
+    est_positions = np.array([pose[:3, 3] for pose in estimated_trajectory])
+    gt_positions = np.array([pose[:3, 3] for pose in gt_trajectory])
     
-    fig = plt.figure(figsize=(10, 8))
+    fig = plt.figure(figsize=(12, 10))
     ax = fig.add_subplot(111, projection='3d')
-    ax.plot(positions[:, 0], positions[:, 1], positions[:, 2], 'b-', label='Estimated Trajectory')
+    
+    ax.plot(est_positions[:, 0], est_positions[:, 1], est_positions[:, 2], 
+            'b-', label='Estimated Trajectory')
+    ax.plot(gt_positions[:, 0], gt_positions[:, 1], gt_positions[:, 2], 
+            'r-', label='Ground Truth')
+    
     ax.set_xlabel('X (m)')
     ax.set_ylabel('Y (m)')
     ax.set_zlabel('Z (m)')
-    ax.set_title('LIDAR SLAM Trajectory')
+    ax.set_title('Trajectory Comparison')
     ax.legend()
     plt.show()
 
-plot_trajectory(trajectory)
+plot_trajectory_comparison(trajectory, gt_trajectory)
