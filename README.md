@@ -1,3 +1,8 @@
 # LIDAR SLAM
-Benchmarking LIDAR datasets with popular Simultaneous Localization And Mapping (SLAM) algorithms. Here I use the EuRoC MAV dataset. More technical details available at my [substack](https://akshaygulabrao.substack.com/publish/post/161315936).
+This repository contains a reference implementation for simultaneous localization and mapping (SLAM) with LIDAR point clouds.
 
+I use the [Newer College Dataset](https://ori-drs.github.io/newer-college-dataset/stereo-cam/) as an example. It contains X,Y,Z. They provide the data in a rosbag format.
+
+I recommend using [Foxglove Studio](https://docs.foxglove.dev/docs). The allow you to easily create new layouts. You can find my layout in four-camera.json.
+
+## Demo
