@@ -1,8 +1,15 @@
 # LIDAR SLAM
-This repository contains a reference implementation for simultaneous localization and mapping (SLAM) with LIDAR point clouds.
 
-I use the [Newer College Dataset](https://ori-drs.github.io/newer-college-dataset/stereo-cam/) as an example. It contains X,Y,Z. They provide the data in a rosbag format.
+This repository parses the ground truth data of the [Newer College Dataset Multicam](https://ori-drs.github.io/newer-college-dataset/multi-cam/).
 
-I recommend using [Foxglove Studio](https://docs.foxglove.dev/docs). The allow you to easily create new layouts. You can find my layout in four-camera.json.
+It assumes that you have a directory like so:
 
-## Demo
+```
+collection_1/ground_truth/
+├── gt-nc-quad-easy.csv
+├── gt-nc-quad-hard.csv
+├── gt-nc-quad-medium.csv
+└── gt-nc-stairs.csv
+```
+
+Replace the dirname on line 6 in main.py.
