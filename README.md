@@ -12,4 +12,4 @@ collection_1/ground_truth/
 └── gt-nc-stairs.csv
 ```
 
-Replace the dirname on line 6 in main.py.
+Replace the filename on line 6 in main.py to the correct path of the csv file. 
