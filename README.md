@@ -1,5 +1,7 @@
 # LIDAR SLAM
 
+A LIDAR streams (x,y,z,r) egocentric measurements. An IMU streams acceleration in (x,y,z) egocentric. By pairing both together, it is possible to generate accurate voxels of the surrounding area.
+
 This repository parses the ground truth data of the [Newer College Dataset Multicam](https://ori-drs.github.io/newer-college-dataset/multi-cam/).
 
 It assumes that you have a directory like so:
@@ -23,10 +25,17 @@ The dataset proposes the following research topics:
 
 ## Getting Started
 
-To benchmark and visualize the data, I use the [evo](https://github.com/MichaelGrupp/evo) library. I ran into installation issues with tkinter, so I had install PyQt5 as the repo instructions suggest.
+To benchmark and visualize the data, I use the [evo](https://github.com/MichaelGrupp/evo) library. I ran into installation issues with tkinter, so I had install PyQt5 as the repo instructions suggest. The commands below can be used to visualize the ground truth data.
 
 ```bash
 uv run evo_config set plot_backend Qt5Agg
-uv run python main.py
-uv run evo_traj tum proper_tum_format.tum -p --plot_mode=xy
+uv run parse_tum.py
+uv run evo_traj tum gt-nc-quad-easy.tum -p --plot_mode=xy
+```
+
+## Running Benchmark on Cartographer
+
+```bash
+git submodule add https://github.com/cartographer-project/cartographer_ros
+
 ```

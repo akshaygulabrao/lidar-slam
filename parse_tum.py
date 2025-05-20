@@ -17,3 +17,4 @@ def convert_to_tum(input_file):
 
 input_filename = '/Users/ox/workspace/newer-college-1/collection1-newer-college/ground_truth/gt-nc-quad-easy.csv'
 convert_to_tum(input_filename)
+

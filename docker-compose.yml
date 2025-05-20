@@ -1,9 +1,6 @@
-version: '3.8'
 services:
   foxglove-studio:
     build:
-      context:
-    ports:
-      - "8080:80" 
-    volumes:
-      - ./config/file.conf:/etc/nginx/nginx.conf 
+      context: "."
+      dockerfile: "Dockerfile"
+    
