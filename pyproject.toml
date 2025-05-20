@@ -1,0 +1,9 @@
+[project]
+name = "lidar-slam"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "evo>=1.31.1",
+    "pre-commit>=4.2.0",
+    "pyqt5>=5.15.11",
+]
