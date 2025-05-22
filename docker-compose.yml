@@ -4,3 +4,4 @@ services:
       context: "."
       dockerfile: "Dockerfile"
     restart: "no"
+    

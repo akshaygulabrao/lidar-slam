@@ -33,12 +33,15 @@ uv run parse_tum.py
 uv run evo_traj tum gt-nc-quad-easy.tum -p --plot_mode=xy
 ```
 
- using `ros_entrypoint.sh` on the ros-noetic-core. 
+```bash
+roslaunch --screen foxglove_bridge foxglove_bridge.launch port:=8765
+```
+## Reproducing Point-LIO
 
+I'm 
 
- ## Troubleshooting
+## Troubleshooting
 
  ```bash
 Error response from daemon: failed to create task for container: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: exec: "/ros_entrypoint.sh": permission denied: unknown
 ```
-

@@ -36,7 +36,11 @@ ENV ROS_DISTRO=noetic
 
 # install ros packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    ros-noetic-ros-core=1.5.0-1* ros-noetic-demo-nodes-cpp\
+    ros-noetic-ros-core=1.5.0-1*\
+    && rm -rf /var/lib/apt/lists/*
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ros-noetic-foxglove-bridge\
     && rm -rf /var/lib/apt/lists/*
 
 # setup entrypoint
