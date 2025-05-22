@@ -1,6 +1,6 @@
 services:
-  foxglove-studio:
+  cartographer-ros:
     build:
       context: "."
       dockerfile: "Dockerfile"
-    
+    restart: "no"

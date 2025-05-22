@@ -36,11 +36,12 @@ ENV ROS_DISTRO=noetic
 
 # install ros packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    ros-noetic-ros-core=1.5.0-1* \
+    ros-noetic-ros-core=1.5.0-1* ros-noetic-demo-nodes-cpp\
     && rm -rf /var/lib/apt/lists/*
 
 # setup entrypoint
 COPY ./ros_entrypoint.sh /
+RUN chmod +x ./ros_entrypoint.sh
 
 ENTRYPOINT ["/ros_entrypoint.sh"]
 CMD ["bash"]
