@@ -4,4 +4,10 @@ services:
       context: "."
       dockerfile: "Dockerfile"
     restart: "no"
+    volumes:
+      - /Users/ox/workspace/2021-07-01-10-37-38-quad-easy.bag:/2021-07-01-10-37-38-quad-easy.bag
+      - /dev/shm:/dev/shm
+    network_mode: "host"
+    ipc: "host"
+    pid: "host"
     

@@ -47,5 +47,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY ./ros_entrypoint.sh /
 RUN chmod +x ./ros_entrypoint.sh
 
-ENTRYPOINT ["/ros_entrypoint.sh"]
+USER root
 CMD ["bash"]
+# ENTRYPOINT ["roslaunch foxglove_bridge foxglove_bridge.launch"]

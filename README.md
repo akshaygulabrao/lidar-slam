@@ -32,16 +32,27 @@ uv run evo_config set plot_backend Qt5Agg
 uv run parse_tum.py
 uv run evo_traj tum gt-nc-quad-easy.tum -p --plot_mode=xy
 ```
-
 ```bash
+docker compose build && docker compose run --rm --remove-orphans  cartographer-ros
 roslaunch --screen foxglove_bridge foxglove_bridge.launch port:=8765
 ```
+
 ## Reproducing Point-LIO
 
-I'm 
+
 
 ## Troubleshooting
 
  ```bash
 Error response from daemon: failed to create task for container: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: exec: "/ros_entrypoint.sh": permission denied: unknown
 ```
+set the executable bit on the ros_entrypoint.sh
+
+```bash
+Error in XmlRpcClient::writeRequest: write error (Connection refused).
+Error in XmlRpcDispatch::work: couldn't find source iterator
+Error in XmlRpcClient::writeRequest: write error (Connection refused).
+Error in XmlRpcDispatch::work: couldn't find source iterator
+[ERROR] [1747961202.954081085]: [registerPublisher] Failed to contact master at [localhost:11311].  Retrying...
+```
+start roscore
