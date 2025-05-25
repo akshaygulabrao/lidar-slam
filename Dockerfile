@@ -43,7 +43,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-noetic-foxglove-bridge\
     && rm -rf /var/lib/apt/lists/*
 
-COPY ./foxglove_bridge.sh /foxglove_bridge.sh
-RUN chmod +x ./foxglove_bridge.sh
+ARG SCRIPT_FILE
+COPY ${SCRIPT_FILE} /ros_script.sh
+RUN chmod +x ./ros_script.sh
 
-ENTRYPOINT ["./foxglove_bridge.sh"]
+ENTRYPOINT ["./ros_script.sh"]
