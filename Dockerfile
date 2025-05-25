@@ -36,17 +36,14 @@ ENV ROS_DISTRO=noetic
 
 # install ros packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    ros-noetic-ros-core=1.5.0-1*\
+    ros-noetic-ros-core=1.5.0-1* \
     && rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-noetic-foxglove-bridge\
     && rm -rf /var/lib/apt/lists/*
 
-# setup entrypoint
-COPY ./ros_entrypoint.sh /
-RUN chmod +x ./ros_entrypoint.sh
+COPY ./foxglove_bridge.sh /foxglove_bridge.sh
+RUN chmod +x ./foxglove_bridge.sh
 
-USER root
-CMD ["bash"]
-# ENTRYPOINT ["roslaunch foxglove_bridge foxglove_bridge.launch"]
+ENTRYPOINT ["./foxglove_bridge.sh"]
