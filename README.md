@@ -1,5 +1,11 @@
 # LIDAR SLAM
+The repository aims to reproduce [LIDAR SLAM algorithms](https://arxiv.org/pdf/2311.00276). Algorithm performance will be measured by RMS Trajectory Error and RMS Heading Error.
 
+Currently, the first algorithm being tested is [Point LIO](https://github.com/hku-mars/Point-LIO). The issue I'm currently facing is that the algorithm is implemented as a ROS-Noetic package which depends on Ubuntu 20.04. Creating a Dockerfile enhances the reproducibility of this algorithm.
+
+I'm currently running into issues with setting up roscore and having multiple docker containers connect to them. See the `docker-compose.yml`. 
+
+## Visualizing Ground Truth Data
 A LIDAR streams (x,y,z,r) egocentric measurements. An IMU streams acceleration in (x,y,z) egocentric. By pairing both together, it is possible to generate accurate voxels of the surrounding area.
 
 This repository parses the ground truth data of the [Newer College Dataset Multicam](https://ori-drs.github.io/newer-college-dataset/multi-cam/).
