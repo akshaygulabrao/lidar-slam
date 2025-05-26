@@ -1,31 +1,27 @@
-services:
-  foxglove:
-    build:
-      context: .
-      args:
-        - SCRIPT_FILE=./foxglove_bridge.sh
-    depends_on:
-      - roscore
-    environment:
-      - ROS_MASTER_URI=http://roscore:11311
-  rostopic:
-    build:
-      context: .
-      args:
-        - SCRIPT_FILE=./rosbag_play.sh
-    depends_on:
-      - roscore
-    environment:
-      - ROS_MASTER_URI=http://roscore:11311
-  roscore:
-    build:
-      context: .
-      args:
-        - SCRIPT_FILE=./roscore.sh
-    ports:
-      - "11311:11311"
-    environment:
-      - ROS_MASTER_URI=http://roscore:11311
 networks:
-  ros_network:
+  rosnet:
     driver: bridge
+
+services:
+  roscore:
+    hostname: roscore
+    container_name: roscore
+    image: rosdemo
+    build:
+      context: "."
+    command: roscore
+    networks:
+      - rosnet
+    tty: true
+    stdin_open: true
+  test_roscore:
+    image: rosdemo
+    command: rostopic list
+    networks:
+      - rosnet
+    environment:
+      - ROS_MASTER_URI=http://roscore:11311/
+    depends_on:
+      - roscore
+    tty: true
+    stdin_open: true
