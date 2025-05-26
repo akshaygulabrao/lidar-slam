@@ -16,7 +16,7 @@ services:
     stdin_open: true
   test_roscore:
     image: rosdemo
-    command: rostopic list
+    command: sleep 2;rostopic list
     networks:
       - rosnet
     environment:
@@ -25,3 +25,12 @@ services:
       - roscore
     tty: true
     stdin_open: true
+  rospublisher:
+    image: rosdemo
+    command: "sleep 2;rostopic pub /chatter std_msgs/String 'data: hello' -r 1"
+    depends_on:
+      - roscore
+    networks: 
+      - rosnet
+    environment:
+      - ROS_MASTER_URI=http://roscore:11311/
