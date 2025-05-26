@@ -3,7 +3,7 @@ The repository aims to reproduce [LIDAR SLAM algorithms](https://arxiv.org/pdf/2
 
 Currently, the first algorithm being tested is [Point LIO](https://github.com/hku-mars/Point-LIO). The issue I'm currently facing is that the algorithm is implemented as a ROS-Noetic package which depends on Ubuntu 20.04. Creating a Dockerfile enhances the reproducibility of this algorithm.
 
-Foxglove Studio published a useful article on this issue [Installing ROS1 on macOS with Docker](https://foxglove.dev/blog/installing-ros1-on-macos-with-docker).  
+Foxglove Studio published a useful article on this issue [Installing ROS1 on macOS with Docker](https://foxglove.dev/blog/installing-ros1-on-macos-with-docker). DO NOT try to wrap this into a docker-compose. I have wasted ~30 hours on this and ran into issues with keeping the containers running. You can look into the commit history to see my last attempts. 
 
 ## Visualizing Ground Truth Data
 A LIDAR streams (x,y,z,r) egocentric measurements. An IMU streams acceleration in (x,y,z) egocentric. By pairing both together, it is possible to generate accurate voxels of the surrounding area.
