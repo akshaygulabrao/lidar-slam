@@ -27,6 +27,10 @@ docker run --rm -it --network rosnet --env 'ROS_MASTER_URI=http://roscore:11311/
 docker run --rm -it --network rosnet --env 'ROS_MASTER_URI=http://roscore:11311/' -p 8765:8765 rosdemo roslaunch foxglove_bridge foxglove_bridge.launch
 ```
 
+```bash
+docker run --rm -it --network rosnet --env 'ROS_MASTER_URI=http://roscore:11311/' -v /Users/ox/workspace/newer-college-1/2021-07-01-10-37-38-quad-easy.bag:/2021-07-01-10-37-38-quad-easy.bag rosdemo rosbag play 2021-07-01-10-37-38-quad-easy.bag
+```
+
 ## Visualizing Ground Truth Data
 A LIDAR streams (x,y,z,r) egocentric measurements. An IMU streams acceleration in (x,y,z) egocentric. By pairing both together, it is possible to generate accurate voxels of the surrounding area.
 
