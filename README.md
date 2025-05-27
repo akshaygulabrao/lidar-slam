@@ -31,6 +31,10 @@ docker run --rm -it --network rosnet --env 'ROS_MASTER_URI=http://roscore:11311/
 docker run --rm -it --network rosnet --env 'ROS_MASTER_URI=http://roscore:11311/' -v /Users/ox/workspace/newer-college-1/2021-07-01-10-37-38-quad-easy.bag:/2021-07-01-10-37-38-quad-easy.bag rosdemo rosbag play 2021-07-01-10-37-38-quad-easy.bag
 ```
 
+```bash
+docker run --rm -it --network rosnet --env 'ROS_MASTER_URI=http://roscore:11311/' -v /Users/ox/workspace/newer-college-1/2021-07-01-10-37-38-quad-easy.bag:/2021-07-01-10-37-38-quad-easy.bag rosdemo bash
+```
+
 ## Visualizing Ground Truth Data
 A LIDAR streams (x,y,z,r) egocentric measurements. An IMU streams acceleration in (x,y,z) egocentric. By pairing both together, it is possible to generate accurate voxels of the surrounding area.
 
@@ -70,7 +74,11 @@ roslaunch --screen foxglove_bridge foxglove_bridge.launch port:=8765
 ```
 
 ## Reproducing Point-LIO
-
+See the dockerfile for the required packages needed to to build Point-LIO. After installing the dockerfile, source the launch files with 
+```bash
+source devel/setup.bash
+```
+Then follow 5.3 to configure for the Ouster LIDAR (in progress). 
 
 
 ## Troubleshooting
