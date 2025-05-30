@@ -9,4 +9,6 @@ RUN apt-get update && apt-get install -y \
     git \
     vim && \
     rm -rf /var/lib/apt/lists/*
-
+COPY setup_ros.sh /setup_ros.sh
+RUN chmod +x /setup_ros.sh
+SHELL ["/bin/bash"]

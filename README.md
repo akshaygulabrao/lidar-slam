@@ -8,6 +8,8 @@ Foxglove Studio published a useful article on this issue [Installing ROS1 on mac
 ## Setup
 The following setup is only tested on macOS.
 
+Remember to set display frame to os_sensor.
+
 
 
 ``` bash
@@ -37,32 +39,6 @@ docker run --rm -it --network rosnet --env 'ROS_MASTER_URI=http://roscore:11311/
 
 ```bash
 docker run --rm -it --network rosnet --env 'ROS_MASTER_URI=http://roscore:11311/' -v /Users/ox/workspace/newer-college-1/2021-07-01-10-37-38-quad-easy.bag:/2021-07-01-10-37-38-quad-easy.bag rosdemo bash
-```
-
-```bash
-docker build . -t rosdemo && \
-docker run --rm -it \
-  --network rosnet \
-  -v /Users/trading/workspace/2021-07-01-10-37-38-quad-easy.bag:/2021-07-01-10-37-38-quad-easy.bag \
-  -v /Users/trading/workspace/lidar-slam/catkin_ws/:/catkin_ws/ \
-  -v /Users/trading/workspace/lidar-slam/pointLIO_foxglove.launch:/pointLIO_foxglove.launch \
-  -p 8765:8765 \
-  --env ROS_MASTER_URI=http://roscore:11311 \
-  rosdemo \
-  roslaunch pointLIO_foxglove.launch
-```
-
-```bash
-docker build . -t rosdemo && \
-docker run --rm -it \
-  --network rosnet \
-  -v /Users/trading/workspace/2021-07-01-10-37-38-quad-easy.bag:/2021-07-01-10-37-38-quad-easy.bag \
-  -v /Users/trading/workspace/lidar-slam/catkin_ws/:/catkin_ws/ \
-  -v /Users/trading/workspace/lidar-slam/pointLIO_foxglove.launch:/pointLIO_foxglove.launch \
-  -p 8765:8765 \
-  --env ROS_MASTER_URI=http://roscore:11311 \
-  rosdemo \
-  roslaunch pointLIO_foxglove.launch
 ```
 
 
