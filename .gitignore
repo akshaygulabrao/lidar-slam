@@ -8,3 +8,4 @@ config
 media
 *.tum
 p.txt
+catkin_ws

@@ -6,6 +6,10 @@ Currently, the first algorithm being tested is [Point LIO](https://github.com/hk
 Foxglove Studio published a useful article on this issue [Installing ROS1 on macOS with Docker](https://foxglove.dev/blog/installing-ros1-on-macos-with-docker). DO NOT try to wrap this into a docker-compose. I have wasted ~30 hours on this and ran into issues with keeping the containers running. You can look into the commit history to see my last attempts.
 
 ## Setup
+The following setup is only tested on macOS.
+
+
+
 ``` bash
 docker network create rosnet
 docker run --rm --name roscore --hostname roscore --network rosnet -it rosdemo roscore
@@ -34,6 +38,33 @@ docker run --rm -it --network rosnet --env 'ROS_MASTER_URI=http://roscore:11311/
 ```bash
 docker run --rm -it --network rosnet --env 'ROS_MASTER_URI=http://roscore:11311/' -v /Users/ox/workspace/newer-college-1/2021-07-01-10-37-38-quad-easy.bag:/2021-07-01-10-37-38-quad-easy.bag rosdemo bash
 ```
+
+```bash
+docker build . -t rosdemo && \
+docker run --rm -it \
+  --network rosnet \
+  -v /Users/trading/workspace/2021-07-01-10-37-38-quad-easy.bag:/2021-07-01-10-37-38-quad-easy.bag \
+  -v /Users/trading/workspace/lidar-slam/catkin_ws/:/catkin_ws/ \
+  -v /Users/trading/workspace/lidar-slam/pointLIO_foxglove.launch:/pointLIO_foxglove.launch \
+  -p 8765:8765 \
+  --env ROS_MASTER_URI=http://roscore:11311 \
+  rosdemo \
+  roslaunch pointLIO_foxglove.launch
+```
+
+```bash
+docker build . -t rosdemo && \
+docker run --rm -it \
+  --network rosnet \
+  -v /Users/trading/workspace/2021-07-01-10-37-38-quad-easy.bag:/2021-07-01-10-37-38-quad-easy.bag \
+  -v /Users/trading/workspace/lidar-slam/catkin_ws/:/catkin_ws/ \
+  -v /Users/trading/workspace/lidar-slam/pointLIO_foxglove.launch:/pointLIO_foxglove.launch \
+  -p 8765:8765 \
+  --env ROS_MASTER_URI=http://roscore:11311 \
+  rosdemo \
+  roslaunch pointLIO_foxglove.launch
+```
+
 
 ## Visualizing Ground Truth Data
 A LIDAR streams (x,y,z,r) egocentric measurements. An IMU streams acceleration in (x,y,z) egocentric. By pairing both together, it is possible to generate accurate voxels of the surrounding area.
@@ -74,25 +105,8 @@ roslaunch --screen foxglove_bridge foxglove_bridge.launch port:=8765
 ```
 
 ## Reproducing Point-LIO
-See the dockerfile for the required packages needed to to build Point-LIO. After installing the dockerfile, source the launch files with 
+See the dockerfile for the required packages needed to to build [Point-LIO](https://github.com/hku-mars/Point-LIO). After installing the dockerfile, source the launch files with 
 ```bash
 source devel/setup.bash
 ```
 Then follow 5.3 to configure for the Ouster LIDAR (in progress). 
-
-
-## Troubleshooting
-
- ```bash
-Error response from daemon: failed to create task for container: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: exec: "/ros_entrypoint.sh": permission denied: unknown
-```
-set the executable bit on the ros_entrypoint.sh
-
-```bash
-Error in XmlRpcClient::writeRequest: write error (Connection refused).
-Error in XmlRpcDispatch::work: couldn't find source iterator
-Error in XmlRpcClient::writeRequest: write error (Connection refused).
-Error in XmlRpcDispatch::work: couldn't find source iterator
-[ERROR] [1747961202.954081085]: [registerPublisher] Failed to contact master at [localhost:11311].  Retrying...
-```
-start roscore
