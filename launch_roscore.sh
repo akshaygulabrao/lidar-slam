@@ -1,1 +1,1 @@
-docker run --rm --name roscore --hostname roscore --network rosnet -it rosdemo roscore
+docker run --rm --name roscore --hostname roscore --network rosnet rosdemo roscore&
