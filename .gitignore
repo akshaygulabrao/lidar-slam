@@ -1,6 +1,7 @@
 .venv
 *bag
 ros2_ws
+scratch.ipynb
 a
 collection_1
 akshay-testing
