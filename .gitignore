@@ -9,3 +9,4 @@ media
 *.tum
 p.txt
 catkin_ws
+bags/
