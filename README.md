@@ -1,12 +1,14 @@
 # Point-LIO Performane on the Newer College Datasets
-The repository aims to reproduce [LIDAR SLAM algorithms](https://arxiv.org/pdf/2311.00276). Algorithm performance will be measured by RMS Trajectory Error and RMS Heading Error.
+The repository aims to reproduce [LIDAR SLAM algorithms](https://arxiv.org/pdf/2311.00276). Algorithm performance will be measured by RMSE position error.
+
+Code repository used to write [Using Localization Point-LIO](https://akshaygulabrao.substack.com/p/localization-and-mapping-with-lidar). 
 
 Currently, the first algorithm being tested is [Point LIO](https://github.com/hku-mars/Point-LIO).The algorithm outputs the localization to the /tf topic.
 
-I recommend using Foxglove Studio and Docker on macOS to run the experiments. See [Installing ROS1 on macOS with Docker](https://foxglove.dev/blog/installing-ros1-on-macos-with-docker) for assistance.
+I recommend using Foxglove Studio and Docker on macOS to run the experiments. See [Installing ROS1 on macOS with Docker](https://foxglove.dev/blog/installing-ros1-on-macos-with-docker) for assistance. Currently having trouble understanding the code. Digging through the code to understand how the initialization works. 
 
 ## Reproducing Point-LIO
-See the dockerfile for the required packages needed to to build [Point-LIO](https://github.com/hku-mars/Point-LIO). Currently, there are 3 terminals that are required to run the script. 
+[Point-LIO](https://drive.google.com/file/d/1I8fByqJ-yE4lvYqeCvvjkzrPWRSjVYpg/view?usp=sharing). See the dockerfile for the required packages needed to to build [Point-LIO](https://github.com/hku-mars/Point-LIO). Currently, there are 3 terminals that are required to run the script. 
 
 In terminal 1, start **roscore**
 ```bash
@@ -14,6 +16,11 @@ docker run --rm --name roscore --hostname roscore --network rosnet rosdemo rosco
 ```
 
 In terminal 2, start recording the output of the SLAM script. Starting after the SLAM algorithm is launched will cause dropped frames resulting in reduced accuracy.
+```bash
+
+```
+
+In terminal 3, start 
 ```bash
 
 ```
@@ -39,23 +46,16 @@ collection_1/ground_truth/
 Replace the filename on line 6 in main.py to the correct path of the csv file. I recommend using [ROS 2 Docker](https://foxglove.dev/blog/installing-ros2-on-macos-with-docker)
 along with [Foxglove Studio](https://app.foxglove.dev/).
 
-The dataset proposes the following research topics:
-1. LIDAR SLAM
-2. Visual Appearance-based Loop Closure
-3. 3D Lidar Reconstruction
-4. Visual Odometry
-
 ## Getting Started
 
 To benchmark and visualize the data, I use the [evo](https://github.com/MichaelGrupp/evo) library. I ran into installation issues with tkinter, so I had install PyQt5 as the repo instructions suggest. The commands below can be used to visualize the ground truth data.
 
 ```bash
 uv run evo_config set plot_backend Qt5Agg
-uv run parse_tum.py
-uv run evo_traj tum gt-nc-quad-easy.tum -p --plot_mode=xy
-```
-```bash
-docker compose build && docker compose run --rm --remove-orphans  cartographer-ros
-roslaunch --screen foxglove_bridge foxglove_bridge.launch port:=8765
+uv run evo_traj bag bags/recorded_data.bag /aft_mapped_to_init --save_as_tum
+uv run evo_traj tum aft_mapped_to_init.tum --ref ../collection1-newercollege/ground_truth/tum_format/gt-nc-quad-easy.csv -p --plot_mode=xy --align
+uv run evo_rpe tum ../collection1-newercollege/ground_truth/tum_format/gt-nc-quad-easy.csv aft_mapped_to_init.tum
 ```
 
+## In Progress
+Finish benchmarking all Newer-College rosbags with LIDAR.

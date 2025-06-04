@@ -1,4 +1,5 @@
 <launch>
+
   <arg name="port"                              default="8765" />
   <arg name="address"                           default="0.0.0.0" />
   <arg name="tls"                               default="false" />
@@ -39,12 +40,12 @@
     <rosparam param="capabilities"            subst_value="True">$(arg capabilities)</rosparam>
     <rosparam param="asset_uri_allowlist"     subst_value="True">$(arg asset_uri_allowlist)</rosparam>
   </node>
-  <node pkg="rosbag" type="play" name="bag_player" 
-      args="-r 2 /2021-07-01-10-37-38-quad-easy.bag --clock --topics \
+  <node pkg="rosbag" type="play" required="true" name="bag_player" 
+      args="-r 1 /test.bag --clock --topics \
         /os_cloud_node/points \
         /os_cloud_node/imu \
         /alphasense_driver_ros/cam0/compressed"/>
-
+<node pkg="rosbag" type="record" name="bag_recorder" args="-p /aft_mapped_to_init --output-name=/bags/recorded_data.bag" />
   <arg name="rviz" default="false" />
 
   <node pkg="point_lio" type="pointlio_mapping" name="laserMapping" output="screen">
@@ -60,5 +61,7 @@
     <param name="ivox_nearby_type" type="int" value="6" /> <!--0.5, 0.3, 0.15, 0.1-->
     <param name="runtime_pos_log_enable" type="bool" value="0" /> <!--1-->
   </node>
+
+
 
 </launch>
