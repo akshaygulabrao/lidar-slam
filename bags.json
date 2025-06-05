@@ -1,0 +1,24 @@
+{
+  "experiments": [
+    {
+      "name": "quad-easy",
+      "bag_file": "/Users/trading/workspace/collection1-newercollege/2021-07-01-10-37-38-quad-easy.bag",
+      "ground_truth": "/Users/trading/workspace/collection1-newercollege/ground_truth/tum_format/gt-nc-quad-easy.csv"
+    },
+    {
+      "name": "quad-medium",
+      "bag_file": "/Users/trading/workspace/collection1-newercollege/2021-07-01-11-31-35_0-quad-medium.bag",
+      "ground_truth": "/Users/trading/workspace/collection1-newercollege/ground_truth/tum_format/gt-nc-quad-medium.csv"
+    },
+    {
+      "name": "quad-hard",
+      "bag_file":"/Users/trading/workspace/collection1-newercollege/2021-07-01-11-35-14_0-quad-hard.bag",
+      "ground_truth":"/Users/trading/workspace/collection1-newercollege/ground_truth/tum_format/gt-nc-quad-hard.csv"
+    },
+    {
+      "name": "stairs",
+      "bag_file": "/Users/trading/workspace/collection1-newercollege/2021-07-01-10-40-50_0-stairs.bag",
+      "ground_truth": "/Users/trading/workspace/collection1-newercollege/ground_truth/tum_format/gt-nc-stairs.csv"
+    }
+  ]
+}
