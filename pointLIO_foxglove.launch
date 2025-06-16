@@ -1,6 +1,6 @@
 <launch>
 
-  <!-- <arg name="port"                              default="8765" />
+  <arg name="port"                              default="8765" />
   <arg name="address"                           default="0.0.0.0" />
   <arg name="tls"                               default="false" />
   <arg name="certfile"                          default="" />
@@ -39,7 +39,7 @@
     <rosparam param="client_topic_whitelist"  subst_value="True">$(arg client_topic_whitelist)</rosparam>
     <rosparam param="capabilities"            subst_value="True">$(arg capabilities)</rosparam>
     <rosparam param="asset_uri_allowlist"     subst_value="True">$(arg asset_uri_allowlist)</rosparam>
-  </node> -->
+  </node>
 
   <node pkg="point_lio" type="pointlio_mapping" name="laserMapping" output="screen">
     <rosparam command="load" file="$(find point_lio)/config/ouster128-newercollege.yaml" />

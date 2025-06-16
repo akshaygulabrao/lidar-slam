@@ -17,8 +17,8 @@
     },
     {
       "name": "stairs",
-      "bag_file": "/Users/trading/workspace/collection1-newercollege/2021-07-01-10-40-50_0-stairs.bag",
-      "ground_truth": "/Users/trading/workspace/collection1-newercollege/ground_truth/tum_format/gt-nc-stairs.csv"
+      "bag_file": "/Volumes/hd0/NewerCollegeDataset/2021-07-01-10-40-50_0-stairs.bag",
+      "ground_truth": "/Volumes/hd0/collection1-newercollege/ground_truth/tum_format/gt-nc-stairs.csv"
     }
   ]
 }

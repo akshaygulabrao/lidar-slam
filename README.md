@@ -1,32 +1,11 @@
 # Point-LIO Performane on the Newer College Datasets
-The repository aims to reproduce [LIDAR SLAM algorithms](https://arxiv.org/pdf/2311.00276). Algorithm performance will be measured by RMSE position error.
-
-Code repository used to write [Using Localization Point-LIO](https://akshaygulabrao.substack.com/p/localization-and-mapping-with-lidar). 
-
-Currently, the first algorithm being tested is [Point LIO](https://github.com/hku-mars/Point-LIO).The algorithm outputs the localization to the /tf topic.
-
-I recommend using Foxglove Studio and Docker on macOS to run the experiments. See [Installing ROS1 on macOS with Docker](https://foxglove.dev/blog/installing-ros1-on-macos-with-docker) for assistance. Currently having trouble understanding the code. Digging through the code to understand how the initialization works. 
+The repository aims to reproduce [LIDAR SLAM algorithms](https://arxiv.org/pdf/2311.00276) with the [Point-LIO](https://drive.google.com/file/d/1I8fByqJ-yE4lvYqeCvvjkzrPWRSjVYpg/view?usp=sharing) Algorithm. The code is provided so all that needs to be done is recording the output on the Newer College Dataset. I recommend using Foxglove Studio and Docker on macOS to run the experiments. See [Installing ROS1 on macOS with Docker](https://foxglove.dev/blog/installing-ros1-on-macos-with-docker) for assistance.
 
 ## Reproducing Point-LIO
-[Point-LIO](https://drive.google.com/file/d/1I8fByqJ-yE4lvYqeCvvjkzrPWRSjVYpg/view?usp=sharing). See the dockerfile for the required packages needed to to build [Point-LIO](https://github.com/hku-mars/Point-LIO). Currently, there are 3 terminals that are required to run the script. 
-
-In terminal 1, start **roscore**
-```bash
-docker run --rm --name roscore --hostname roscore --network rosnet rosdemo roscore 
-```
-
-In terminal 2, start recording the output of the SLAM script. Starting after the SLAM algorithm is launched will cause dropped frames resulting in reduced accuracy.
-```bash
-
-```
-
-In terminal 3, start 
-```bash
-
-```
-
-This sets up the docker containers necessary, forwards the output to foxglove studio, and records the path in /bags/recorded_data.bag.
-
+The script can be run on any arbitrary bag file using `launch_rosScript.sh`. The script takes in 3 arguments: 
+1. run name
+2. bag name
+3. tum file name - used to measure gt
 
 ## Visualizing Ground Truth Data
 A LIDAR streams (x,y,z,r) egocentric measurements. An IMU streams acceleration in (x,y,z) egocentric. By pairing both together, it is possible to generate accurate voxels of the surrounding area.

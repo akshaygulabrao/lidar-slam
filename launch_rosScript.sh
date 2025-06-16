@@ -3,9 +3,9 @@
 WORKDIR="/Users/trading/workspace/lidar-slam"
 
 # Default values
-DEFAULT_RUN_NAME="nc-quad-easy"
-DEFAULT_INPUT_PATH="/Users/trading/workspace/collection1-newercollege/2021-07-01-10-37-38-quad-easy.bag"
-DEFAULT_GROUND_TRUTH="../collection1-newercollege/ground_truth/tum_format/gt-nc-quad-easy.csv"
+DEFAULT_RUN_NAME="default-nc-quad-easy"
+DEFAULT_INPUT_PATH="/Volumes/hd0/NewerCollegeDataset/2021-07-01-10-37-38-quad-easy-001.bag"
+DEFAULT_GROUND_TRUTH="/Volumes/hd0/NewerCollegeDataset/collection 1 - newer college/ground_truth/gt-nc-quad-easy.csv"
 
 # Handle command-line arguments
 if [ $# -eq 0 ]; then
