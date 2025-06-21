@@ -7,7 +7,8 @@ RUN apt-get update && apt-get install -y \
     libeigen3-dev \
     libgoogle-glog-dev \
     git \
-    vim && \
+    vim \
+    libopencv-dev && \
     rm -rf /var/lib/apt/lists/*
 COPY setup_ros.sh /setup_ros.sh
 RUN chmod +x /setup_ros.sh

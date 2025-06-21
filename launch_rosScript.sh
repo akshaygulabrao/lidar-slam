@@ -5,7 +5,7 @@ function check() {
     local path="${!path_var_name}"  # Indirect variable reference
     
     if [[ ! -f "$path" ]]; then
-        echo "Can't find \"$path_var_name\" (value: $path)"
+        echo "Can't find '$path_var_name' (value: $path)"
         exit 1
     fi
 }
@@ -13,9 +13,9 @@ function check() {
 WORKDIR=$PWD
 
 # Default values
-DEFAULT_RUN_NAME="default-nc-quad-easy"
-DEFAULT_INPUT_PATH="/Volumes/hd1/NewerCollegeDataset/2021-07-01-10-37-38-quad-easy.bag"
-DEFAULT_GROUND_TRUTH="/Volumes/hd1/NewerCollegeDataset/collection 1 - newer college/ground_truth/tum_format/gt-nc-quad-easy.csv"
+DEFAULT_RUN_NAME="default-stairs"
+DEFAULT_INPUT_PATH="/Volumes/hd1/NewerCollegeDataset/2021-07-01-10-40-50_0-stairs-001.bag"
+DEFAULT_GROUND_TRUTH="/Volumes/hd1/NewerCollegeDataset/collection 1 - newer college/ground_truth/tum_format/gt-nc-stairs.csv"
 
 check DEFAULT_INPUT_PATH
 check DEFAULT_GROUND_TRUTH
@@ -40,7 +40,7 @@ DOCKER_IMAGE="rosdemo"
 DOCKER_NAME="pointLIO"
 DOCKER_NETWORK="rosnet"
 DOCKER_LAUNCH_FILE="pointLIO_foxglove.launch"
-DOCKER_SETUP_SCRIPT="setup_ros.sh"
+DOCKER_SETUP_SCRIPT="setup_agg.sh"
 
 check DOCKER_LAUNCH_FILE
 
@@ -75,5 +75,7 @@ uv run evo_traj bag bags/recorded_data.bag /aft_mapped_to_init --save_as_tum
 mv aft_mapped_to_init.tum $OUTPUT_TUM_FILE
 
 # Run evaluation metrics
-uv run evo_traj tum $OUTPUT_TUM_FILE --ref "$GROUND_TRUTH_FILE" --align --no_warnings
-uv run evo_ape tum "$GROUND_TRUTH_FILE" $OUTPUT_TUM_FILE -a --save_results $RESULTS_ZIP --no_warnings
+echo "uv run evo_traj tum '$OUTPUT_TUM_FILE' --ref '$GROUND_TRUTH_FILE' --align --no_warnings"
+uv run evo_traj tum '$OUTPUT_TUM_FILE' --ref '$GROUND_TRUTH_FILE' --align --no_warnings
+echo "uv run evo_ape tum "$GROUND_TRUTH_FILE" "$OUTPUT_TUM_FILE" -a --save_results "$RESULTS_ZIP" --no_warnings"
+uv run evo_ape tum "$GROUND_TRUTH_FILE" "$OUTPUT_TUM_FILE" -a --save_results "$RESULTS_ZIP" --no_warnings

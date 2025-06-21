@@ -3,6 +3,8 @@ name = "lidar-slam"
 version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
+    "docopt>=0.6.2",
+    "draccus>=0.11.5",
     "evo>=1.31.1",
     "files-to-prompt>=0.6",
     "ipykernel>=6.29.5",
