@@ -67,13 +67,4 @@ docker run --rm -it \
   -v $WORKDIR/ouster128-newercollege.yaml:/ouster128-newercollege.yaml \
   -p 8765:8765 \
   --name $DOCKER_NAME \
-  $DOCKER_IMAGE \
-  /bin/bash $DOCKER_SETUP_SCRIPT
-
-# Process trajectory data
-uv run evo_traj bag bags/recorded_data.bag /aft_mapped_to_init --save_as_tum
-mv aft_mapped_to_init.tum $OUTPUT_TUM_FILE
-
-# Run evaluation metrics
-uv run evo_traj tum $OUTPUT_TUM_FILE --ref "$GROUND_TRUTH_FILE" --align --no_warnings
-uv run evo_ape tum "$GROUND_TRUTH_FILE" $OUTPUT_TUM_FILE -a --save_results $RESULTS_ZIP --no_warnings
+  $DOCKER_IMAGE

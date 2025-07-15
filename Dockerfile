@@ -7,6 +7,10 @@ RUN apt-get update && apt-get install -y \
     libeigen3-dev \
     libgoogle-glog-dev \
     git \
+    gdb \
+    libopencv-dev \
+    libspdlog-dev \
+    xterm \
     vim && \
     rm -rf /var/lib/apt/lists/*
 COPY setup_ros.sh /setup_ros.sh
